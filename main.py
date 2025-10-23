@@ -34,5 +34,5 @@ class MyBot(commands.Bot):
 
 if __name__ == "__main__":
     intents = discord.Intents.all()
-    bot = MyBot(command_prefix="sy!", intents=intents)
+    bot = MyBot(command_prefix="syt!", intents=intents)
     asyncio.run(bot.start(config.token))
