@@ -7,7 +7,7 @@ from config import config
 import asyncio
 
 
-class LOttery(discord.ui.View):  # 抽選コマンド
+class Lottery(discord.ui.View):  # 抽選コマンド
     def __init__(self, bot: commands.Bot):
         super().__init__(timeout=None)
         self.bot = bot
@@ -72,7 +72,7 @@ class LOttery(discord.ui.View):  # 抽選コマンド
             session.commit()
 
 
-class CPresent(commands.Cog):
+class Present(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
@@ -84,6 +84,7 @@ class CPresent(commands.Cog):
         kikann="応募期間(日数入力)"
     )
     @app_commands.checks.has_role(config.role.administrater_role_id)
+    @app_commands.guild_only()
     async def cpresent_user(self, interaction: discord.Interaction, serveruser: int, kikann: int):
 
         syuuryoubi = datetime.now() + timedelta(days=kikann)
@@ -119,10 +120,11 @@ class CPresent(commands.Cog):
         )
         await interaction.response.send_message("送信しました", ephemeral=True)
         await interaction.channel.send(embed=present_embed)
-        await interaction.channel.send(view=LOttery(self.bot))
+        await interaction.channel.send(view=Lottery(self.bot))
 
     @app_commands.command(name="present-reset", description="【運営】present企画-リセットコマンド")
     @app_commands.checks.has_role(config.role.administrater_role_id)
+    @app_commands.guild_only()
     async def cpresentreset(self, interaction: discord.Interaction):
         results = session.query(User).all()
         for i in results:
@@ -133,5 +135,5 @@ class CPresent(commands.Cog):
 
 
 async def setup(bot: commands.Bot):
-    await bot.add_cog(CPresent(bot))
-    bot.add_view(LOttery(bot))
+    await bot.add_cog(Present(bot))
+    bot.add_view(Lottery(bot))
