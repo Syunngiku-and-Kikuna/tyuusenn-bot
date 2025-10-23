@@ -35,21 +35,27 @@ class Lottery(discord.ui.View):  # 抽選コマンド
         if rsl2 in interaction.user.roles:
             oubouser.rsl2 = True
             point += 1
+            await asyncio.sleep(1)  # 少し待機してから再取得
         if rsc1 in interaction.user.roles:
             oubouser.rsc1 = True
             point += 1
+            await asyncio.sleep(1)  # 少し待機してから再取得
         if rsc2 in interaction.user.roles:
             oubouser.rsc2 = True
             point += 1
+            await asyncio.sleep(1)  # 少し待機してから再取得
         if rsc3 in interaction.user.roles:
             oubouser.rsc3 = True
             point += 1
+            await asyncio.sleep(1)  # 少し待機してから再取得
         if rsc4 in interaction.user.roles:
             oubouser.rsc4 = True
             point += 1
+            await asyncio.sleep(1)  # 少し待機してから再取得
         if rsc5 in interaction.user.roles:
             oubouser.rsc5 = True
             point += 1
+            await asyncio.sleep(1)  # 少し待機してから再取得
         if point == 0:
             await interaction.followup.send("応募資格がありません\n応募条件を読んできてください", ephemeral=True)
             oubouser.pushbutton += 1
