@@ -1,2 +1,4 @@
 /TSTK.txt
 /__pycache__
+*.db
+*.pyc
