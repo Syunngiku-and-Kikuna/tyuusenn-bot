@@ -27,8 +27,9 @@ class Lottery(discord.ui.View):  # 抽選コマンド
             userdb = User(userid=interaction.user.id, username=interaction.user.name)
             session.add(userdb)
             session.commit()
-            await asyncio.sleep(1)  # 少し待機してから再取得
-        elif oubouser.oubo is True:
+            await interaction.followup.send("データベースが作成されました。もう一度[応募ボタン]を押してください\n-# 1回で応募まで完了させたかったんだけど多分仕様的に無理っぽい(笑)", ephemeral=True)
+            return
+        if oubouser.oubo is True:
             await interaction.followup.send("すでに応募済みです。抽選開始までお待ちください。", ephemeral=True)
             return
         if rsl2 in interaction.user.roles:
