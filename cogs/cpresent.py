@@ -50,7 +50,7 @@ class Lottery(discord.ui.View):  # 抽選コマンド
             oubouser.rsc5 = True
             point += 1
         if point == 0:
-            await interaction.response.send_message("応募資格がありません\n応募条件を読んできてください", ephemeral=True)
+            await interaction.followup.send("応募資格がありません\n応募条件を読んできてください", ephemeral=True)
             oubouser.pushbutton += 1
             session.commit()
             return
@@ -58,7 +58,7 @@ class Lottery(discord.ui.View):  # 抽選コマンド
             oubouser.oubo = True  # 応募済み
             oubouser.pushbutton += 1
             session.commit()
-            await interaction.response.send_message(f"{point}口応募されました。抽選開始までお待ちください。", ephemeral=True)
+            await interaction.followup.send(f"{point}口応募されました。抽選開始までお待ちください。", ephemeral=True)
 
     @discord.ui.button(label="企画終了", style=ButtonStyle.red, custom_id="delevent")
     async def pressedDeleventButton(self, interaction: discord.Interaction, button: discord.ui.button):
