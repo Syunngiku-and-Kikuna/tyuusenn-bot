@@ -31,6 +31,8 @@ class Lottery(discord.ui.View):  # 抽選コマンド
             return
         if oubouser.oubo is True:
             await interaction.followup.send("すでに応募済みです。抽選開始までお待ちください。", ephemeral=True)
+            oubouser.pushbutton += 1
+            session.commit()
             return
         if rsl2 in interaction.user.roles:
             oubouser.rsl2 = True
