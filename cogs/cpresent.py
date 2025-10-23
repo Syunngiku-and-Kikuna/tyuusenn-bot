@@ -78,7 +78,7 @@ class Present(commands.Cog):
 
 # !--------------------------------------------------------------------
 
-    @app_commands.command(name="present-test", description="【運営】present企画")
+    @app_commands.command(name="present", description="【運営】present企画")
     @app_commands.describe(
         serveruser="サーバー人数(100の倍数で入力)",
         kikann="応募期間(日数入力)"
@@ -122,7 +122,7 @@ class Present(commands.Cog):
         await interaction.channel.send(embed=present_embed)
         await interaction.channel.send(view=Lottery(self.bot))
 
-    @app_commands.command(name="present-reset-test", description="【運営】present企画-リセットコマンド")
+    @app_commands.command(name="present-reset", description="【運営】present企画-リセットコマンド")
     @app_commands.checks.has_role(config.role.administrater_role_id)
     @app_commands.guild_only()
     async def cpresentreset(self, interaction: discord.Interaction):
