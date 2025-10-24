@@ -69,6 +69,41 @@ class Lottery(discord.ui.View):  # 抽選コマンド
             session.commit()
             await interaction.followup.send(f"{point}口応募されました。抽選開始までお待ちください。", ephemeral=True)
 
+    @discord.ui.button(label="応募状況確認", style=ButtonStyle.blurple, custom_id="check")
+    async def pressedCheckButton(self, interaction: discord.Interaction, button: discord.ui.button):
+        oubouser = session.query(User).filter_by(userid=interaction.user.id).first()
+        if oubouser is None:
+            await interaction.response.send_message("まだ応募されていません。応募ボタンを押して応募してください。", ephemeral=True)
+            return
+        if oubouser.oubo is True:
+            rsl2status = "取得済み(応募権)" if oubouser.rsl2 else "なし"
+            rsc1status = "取得済み(応募権)" if oubouser.rsc1 else "なし"
+            rsc2status = "取得済み(応募権)" if oubouser.rsc2 else "なし"
+            rsc3status = "取得済み(応募権)" if oubouser.rsc3 else "なし"
+            rsc4status = "取得済み(応募権)" if oubouser.rsc4 else "なし"
+            rsc5status = "取得済み(応募権)" if oubouser.rsc5 else "なし"
+            CHDESC = f"""
+<@{interaction.user.id}> さんの応募状況は以下の通りです。
+応募権1つにつき1口応募されます。
+
+> <@&{config.role.rsl2}> : {rsl2status}
+> <@&{config.role.rsc1}> : {rsc1status}
+> <@&{config.role.rsc2}> : {rsc2status}
+> <@&{config.role.rsc3}> : {rsc3status}
+> <@&{config.role.rsc4}> : {rsc4status}
+> <@&{config.role.rsc5}> : {rsc5status}
+
+合計応募口数 : {sum([oubouser.rsl2, oubouser.rsc1, oubouser.rsc2, oubouser.rsc3, oubouser.rsc4, oubouser.rsc5])}口
+"""
+            chembed = discord.Embed(
+                title="応募状況確認",
+                description=CHDESC,
+                color=0x00ff00
+            )
+            await interaction.response.send_message("応募済みです。抽選開始までお待ちください。", embed=chembed, ephemeral=True)
+        else:
+            await interaction.response.send_message("まだ応募されていません。応募ボタンを押して応募してください。", ephemeral=True)
+
     @discord.ui.button(label="企画終了", style=ButtonStyle.red, custom_id="delevent")
     async def pressedDeleventButton(self, interaction: discord.Interaction, button: discord.ui.button):
         role = interaction.guild.get_role(config.role.administrater_role_id)
