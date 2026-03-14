@@ -87,7 +87,7 @@ class Present(commands.Cog):
     @tasks.loop(seconds=60)
     async def send_task(self):
         now = datetime.now()
-        if now.hour == 23 and now.minute == 38:
+        if now.hour == 00 and now.minute == 00:
             ch = await self.bot.fetch_channel(config.channel.nitice)
             oubouser = session.query(User).all()
             if len(oubouser) == 0:
