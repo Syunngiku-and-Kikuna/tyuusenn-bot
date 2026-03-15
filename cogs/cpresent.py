@@ -80,6 +80,7 @@ class Present(commands.Cog):
             color=0x87ea00,
             timestamp=datetime.now()
         )
+        present_embed.set_footer(text="Bot開発・主催:菊菜(きくな)")
         await interaction.response.send_message("送信しました", ephemeral=True)
         await interaction.channel.send("突如始まる運のみで決まるプレゼント企画(笑)", embed=present_embed)
         await interaction.channel.send(view=Lottery(self.bot))
