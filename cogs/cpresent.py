@@ -102,8 +102,10 @@ class Present(commands.Cog):
                     color=0x87ea00,
                     timestamp=datetime.now()
                 )
-                await interaction.channel.send(f"<@{user.userid}>", embed=embed)
-    
+                embed.set_footer(text="Bot開発・主催:菊菜(きくな)")
+                kakuritu = 1 / len(oubouser) * 100
+                await interaction.channel.send(f"<@{user.userid}>さんが当選しました! 確率: {kakuritu:.5f}%", embed=embed)
+
     @app_commands.command(name="button", description="buttonのみ送信")
     @app_commands.checks.has_role(config.role.administrater_role_id)
     @app_commands.guild_only()
