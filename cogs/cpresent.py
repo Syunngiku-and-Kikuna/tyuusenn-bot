@@ -105,6 +105,9 @@ class Present(commands.Cog):
                 embed.set_footer(text="Bot開発・主催:菊菜(きくな)")
                 kakuritu = 1 / len(oubouser) * 100
                 await interaction.channel.send(f"<@{user.userid}>さんが当選しました! 確率: {kakuritu:.5f}%", embed=embed)
+                print(f"{user.no:02}" + "\033[42m" + "当選" + "\033[0m" + f" : {user.displayname}")
+            else:
+                print(f"{user.no:02}" + "\033[41m" + "落選" + "\033[0m" + f" : {user.displayname}")
 
     @app_commands.command(name="button", description="buttonのみ送信")
     @app_commands.checks.has_role(config.role.administrater_role_id)
